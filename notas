@@ -1,4 +1,4 @@
-nota 29-03-2018 SO:
+clase  29-03-2018 SO:
 
 
 sigfpe() : interrupción del sistema cuando una operación de división por 0 es 
@@ -15,5 +15,43 @@ link: https://www.ibm.com/support/knowledgecenter/en/SSLTBW_2.1.0/com.ibm.zos.v2
 
 ejemplos de uso manejo de errores
 http://pubs.opengroup.org/onlinepubs/009604499/functions/sigaction.html
+
+
+clase 04-04-2018 SO:
+
+generacion de instancias con hebras de ejecución
+
+linea: pthread_create(&thid[j], &attr, func, NULL);
+
+(arreglo apuntando a hebras, atributos, funcion a realizar, valor);
+
+antes de finalizar hace una búsqueda de los procesos hijos antes de finalizar
+el proceso padre.
+
+linea: pthread_join(thid[j],NULL);
+(ingresa puntero de hebra de ejecucion, valor);
+
+compilación archivo:
+$gcc -pthread archivo.c -o archivo
+
+
+archivo 2.c:
+
+modificar la prioridad de un proceso
+int sched_param(pit_t pid, const struct_param *param)
+
+modificar prioridad y política de tarea:
+int sched_scheduler(pid_t pid, const sched_param)
+
+obtencion de parametros de planificacion de un proceso:
+int sched_param(pid_t pid, const struct_param *param);
+
+obtencion de prioridad de un proceso
+int sched_getscheduler(pid_t pid);
+
+[tarea]
+se realiza cambio de prioridad un hilo de proceso e imprimirla
+
+link de dato: https://www.princeton.edu/~cad/emsim/files/example.c
 
 

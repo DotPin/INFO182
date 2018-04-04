@@ -1,0 +1,21 @@
+clase  29-03-2018 SO:
+
+
+sigfpe() : interrupción del sistema cuando una operación de división por 0 es 
+intentada de interpretar
+
+SIGSEGV: Incorrect access to memory.
+
+códigos de llamada para clase
+
+TABLA VALORES DE SEÑALES sigmal
+
+link: https://www.ibm.com/support/knowledgecenter/en/SSLTBW_2.1.0/com.ibm.zos.v2r1.bpxbd00/rtsigac.htm
+
+
+ejemplos de uso manejo de errores
+http://pubs.opengroup.org/onlinepubs/009604499/functions/sigaction.html
+
+
+clase 04-04-2018 SO:
+
