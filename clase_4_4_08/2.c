@@ -8,7 +8,7 @@ void priori(int pid){
 	struct sched_param param;
 	param.sched_priority = 16;
 	sched_setparam(pid,&param);
-	printf("parámetro prioridad: %i \n",sched_getparam(pid,&param));
+	printf("parámetro prioridad: %i \n\n",sched_getparam(pid,&param));
 }
 
 
