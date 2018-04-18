@@ -1,0 +1,29 @@
+
+
+1.- al ingresar los datos pipe en write, el proceso completa la seccion crítica, pero si el write comentado en el proceso padre main, el proceso completa un estado de inanicion
+
+2.- primitivas send(destino, mensaje) y receive(destino,mensaje), son estructuras básicas para envío de mensajes sincronizados.
+	su flijo de datos es bidireccional, y uniderccional
+	los mensajes son enviados de tipo directo y indirecto
+	los parámetros pueden ser sincronos o asincronos.
+
+3.- la comunicacion de mensajes (send, receive) pueden ser a través de procesos encolados, o direccionados a través de puertos.
+
+4.- primitivas POSIX:
+	mq_open(char *name, int flag, mode_t mode, mq_attr *attr);
+		crea una cola de mensajes con nombre y atributos attr:
+			~numero maximo de mensajes
+			~tamaño maximo del mensaje
+			~bloqueante, no bloqueante.
+	mq_close(mqd_t mqdes);
+		cierra una cola de mensajes
+
+	mq_unlink(char *name);
+		borra una cola de mensages
+
+	mq_send(mqd_t mqdes, char msg*, size_t len, int prio);
+		envia mensage msg de longitud len a la cola de mensaje mqdes con prioridad prio;
+		si la cola esta llena el envio puiede ser bloqueante o no
+
+
+	int mq_receive() //falta info
