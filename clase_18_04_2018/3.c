@@ -3,6 +3,7 @@
 #include <sys/stat.h>        /* For mode constants */
 #include<mqueue.h>
 #include<string.h>
+#include<errno.h>
 
 void main(void){
 
@@ -12,10 +13,11 @@ void main(void){
 
 	attr.mq_maxmsg = 1;	//numero maximo de mensajes
 	attr.mq_msgsize = 0;	//tamaño del mensaje
-
+	
+	//errno=0;
 	mutex = mq_open("\MUTEX", O_CREAT|O_RDWR,0777, &attr);
-	//if(mutex=-1){		comprobación de la llamada a error
-	//	printf("error %s",strerror(errno));
+	//if(errno!=0){	//	comprobación de la llamada a error
+	//	printf("error %s",strerrno(errno));
 	//}
 
 	if(fork()==0){
