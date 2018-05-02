@@ -43,4 +43,3 @@ void main()
 }
 
 
-/* revisar errores de compilación */
