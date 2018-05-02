@@ -15,7 +15,7 @@
 int k=2;
 sem_t mutex;
 
-void *suma1(){
+void suma1(){
     while(1){
         sem_wait(&mutex);
         k = k+5;
@@ -24,7 +24,7 @@ void *suma1(){
     }
 }
 
-void *suma2(){
+void suma2(){
     while(1){
         sem_wait(&mutex);
         printf("Lee %d\n",k);
