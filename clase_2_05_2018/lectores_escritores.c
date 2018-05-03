@@ -10,30 +10,40 @@
 
 int cuentalect, cuentaescr;
 sem_t mutex, y, z, sescr, slect;
+int x=3;
+
+void LEERDATO(){
+    printf("lectura de x: %d\n",x);
+}
+
+void ESCRIBIRDATO(){
+    printf("Escritura de x\n");
+    x = 3;
+}
 
 void lector()
 {
-	while (true)
+	while (1)
 	{
 		sem_wait (&z);
 		sem_wait (&slect);
-		sem_wait (&x);
+		sem_wait (&y);
 		cuentalect++;
 		if (cuentalect == 1) sem_wait (&sescr);
-		sem_post (&x);
+		sem_post (&y);
 		sem_post (&slect);
 		sem_post (&z);
 		LEERDATO();
-		sem_wait (&x);
+		sem_wait (&y);
 		cuentalect--;
 		if (cuentalect == 0) sem_post (&sescr);
-		sem_post (&x);
+		sem_post (&y);
 	}
 }
 
 void escritor ()
 {
-	while (true)
+	while (1)
 	{
 		sem_wait (&y);
 		cuentaescr++;
@@ -61,8 +71,8 @@ void main()
         pid=fork();
         printf("ID proceso: %d\n",getpid());
         if(pid==0){
-            suma2();
+            lector();
         }else{
-            suma1();
+            escritor();
         }
 }
