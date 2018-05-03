@@ -1,4 +1,5 @@
 
+#include <sys/sem.h>
 
 
 int* p = NULL;
@@ -26,7 +27,11 @@ int main(){
         sb[0].sem_op = 1;
         semop(sem,sb,1);
     }
-    shmdt(p);    return 0;}
+    shmdt(p);    
+    return 0;
+    
+}
 
-Resp. Implementación de memoria compartida que se accede en exclusión mutua por dos procesos mediante semáforos.
+    
+//Resp. Implementación de memoria compartida que se accede en exclusión mutua por dos procesos mediante semáforos.
 
