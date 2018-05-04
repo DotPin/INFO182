@@ -1,31 +1,54 @@
-codigo lector escritor con funciones de memoria compartida
+
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <semaphore.h>
+#include <unistd.h>
+#include <sys/shm.h>
+#include <sys/ipc.h>
+#include <sys/types.h>
+
+
+
+sem_t mutex, 
+int key,id,pmem,x;
+
+void escritor(){
+    sem_wait(&mutex);
+    dato = dato +2;
+    sem_post(&mutex);
+}
+
+
+void lector(){
+    sem_wait(&mx_lec);
+    n_lectores = n_lectores + 1;
+    if (n_lectores == 1) sem_wait(&mutex);
+    sem_post(&mx_lec);
+
+    print("lectura %d",dato);
+
+    sem_wait(&mx_lec);
+    n_lectores = n_lectores - 1;
+    if(n_lectores == 0) sem_post(&mutex);
+    sem_post(&mx_lec);
+}
 
 void main(){
     
-    int key,id,pmem,x;
     
-    //declaracion de variables mutex
     
-    if((key=ftok("home/laboratorio/frases.py",100)==-1)){
-        
-        printf("archivo existe\n");
-        exit();
-        
-    }
-    if((id=shmget(key,sizeof(x),IPC_CREAT|0777))==-1){//se asocia espacio de memoria compartida 
-        printf("Memoria compartida\n");
-    }
     
-    if((pmem=shmat(id,NULL,0))==-1){
     
-        printf("no se pudo tomar memoria compartida\n");
-    }
+    key=ftok("home/laboratorio/frases.py",100);
+    id=shmget(key,sizeof(x),IPC_CREAT|0777);
+    pmem=shmat(id,NULL,0);
     
-    while(1){
+    for(int i=0; i<11 ;i++){
         pid=fork();
-        if(pid==0) break;
+        if(pid==0) break; //genera procesos hijos a partir del padre
     }
-    //codigo de lectores
+    
     if(pid==0){
         r=rnd(0..10);
         if(r<5){
@@ -34,28 +57,4 @@ void main(){
             escritor()
         }
     }
-}
-
-
-archivo 1
-void escritor(){
-    sem_wait(&mutex);
-    dato = dato +2;
-    sem_post(&mutex);
-}
-
-
-archivo 2
-void lector(){
-    sem_wait(&sem_lec);
-    n_lectores = n_lectores + 1;
-    if (n_lectores == 1) sem_wait(&mutex);
-    sem_post(&sem_lec);
-
-    print("lectura %d",dato);
-
-    sem_wait(&sem_lec);
-    n_lectores = n_lectores - 1;
-    if(n_lectores == 0) sem_post(&mutex);
-    sem_post(&sem_lec);
 }
