@@ -7,7 +7,6 @@
 #include<stdio.h>
 #include<sys/sem.h>
 #include<semaphore.h>   //necesario para impementar sem_t
-//#include<pthread.h>
 #include<unistd.h>
 
 /* unistd.h es para el uso de fork() */
