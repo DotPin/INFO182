@@ -10,13 +10,15 @@ void inicio2(void);
 
 int pid;
 void main(){
-    pid = fork();
+    
     printf("Inicia");
+    pid = fork();
+    
     if(pid == 0){
-        inicio1();
+        inicio2();
         printf("Produce");
     }else{
-        inicio2();
+        inicio1();
         printf("Consume");
     }
 }

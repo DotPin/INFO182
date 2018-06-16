@@ -13,7 +13,21 @@ sem_t *elementos; //elementos en el buffer
 sem_t *huecos; //huecos en el buffer
 int * buffer; //puntero al buffer de enteros
 
-void inicio1(void){
+void productor(int * buffer){
+  int dato; //dato a producir
+  int posicion = 0; //donde insertar el elemento
+  int j;
+  for (j = 0; j< DATOS_A_PRODUCIR; j++){
+    dato = j;
+    sem_wait(huecos); //un hueco -
+    buffer[posicion] = dato;
+    posicion =(posicion + 1) % MAX_BUFFER; //nueva posicion
+    sem_post(elementos); //un elemento mas
+  }
+  
+}
+
+void inicio1(int argc, int argv[]){
   int shd;
   //int *buffer; //buffer comun
   //creacion e inicializacion de semaforos
@@ -26,8 +40,7 @@ void inicio1(void){
 
   //proyectar el objeto de memoria compartida en el espacio de direcciones del productor
   buffer = (int*)(mmap(NULL, MAX_BUFFER *sizeof(int), PROT_WRITE, MAP_SHARED, shd, 0));
-  
-  productor(); 
+  productor(buffer); 
 
   //desproyeccion del buffer
 
@@ -41,16 +54,4 @@ void inicio1(void){
   sem_unlink("ELEMENTOS");
   //exit(0);
 }
-void productor(){
-  int dato; //dato a producir
-  int posicion = 0; //donde insertar el elemento
-  int j;
-  for (j = 0; j< DATOS_A_PRODUCIR; j++){
-    dato = j;
-    sem_wait(huecos); //un hueco -
-    buffer[posicion] = dato;
-    posicion =(posicion + 1) % MAX_BUFFER; //nueva posicion
-    sem_post(elementos); //un elemento mas
-  }
-  return;
-}
+
