@@ -6,6 +6,8 @@
 void inicio1(void);
 void inicio2(void);
 
+//compilación gcc main.c productor.c consumidor.c -o tarea -pthread
+
 int pid;
 void main(){
     pid = fork();
