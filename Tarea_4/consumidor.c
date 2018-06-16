@@ -15,6 +15,23 @@ sem_t *huecos;
 sem_t *elementos;
 int *buffer; /* buffer de números enteros */
 
+/*código del proceso productor */
+  void consumidor (){
+    int dato;
+    /*dato a consumir */
+    int posicion = 0; /* posición que indica el elemento a extraer */
+    int j;
+    for (j = 0; j<DATOS_A_PRODUCIR; j++){
+      
+      sem_wait(elementos); /* un elemento menos */
+      dato = buffer[posicion];
+      posicion = (posicion + 1) % MAX_BUFFER; /* nueva posición */
+      sem_post (huecos); /* un hueco más)*/
+      printf("Consume %d \n", dato); /*consumir dato*/    
+    }
+    
+  }
+
 void inicio2(void){
   int shd;
   /* se abren los semáforos */
@@ -36,19 +53,4 @@ void inicio2(void){
   sem_close(elementos);
   exit(0);
 }
-/*código del proceso productor */
-  void consumidor (){
-    int dato;
-    /*dato a consumir */
-    int posicion = 0; /* posición que indica el elemento a extraer */
-    int j;
-    for (j = 0; j<DATOS_A_PRODUCIR; j++){
-      
-      sem_wait(elementos); /* un elemento menos */
-      dato = buffer[posicion];
-      posicion = (posicion + 1) % MAX_BUFFER; /* nueva posición */
-      sem_post (huecos); /* un hueco más)*/
-      printf("Consume %d \n", dato); /*consumir dato*/    
-    }
-    return;
-  }
+
