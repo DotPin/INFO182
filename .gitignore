@@ -1,1 +1,3 @@
 *.swp
+.directory
+.fuse_hidden000003f*
