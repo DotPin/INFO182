@@ -4,6 +4,7 @@
 #include <pthread.h>
 #include <semaphore.h>
 #include <fcntl.h>
+#include <unistd.h>
 
 #define MAX_BUFFER 1024
 #define DATOS_A_PRODUCIR 100000
